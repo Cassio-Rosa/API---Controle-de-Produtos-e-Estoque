@@ -37,4 +37,17 @@ def adicionar_produto(nome, categoria, preco, quantidade):
             cursor.close()
             conexao.close()
 
-adicionar_produto("Estojo", "Escola", 12.90, 91 )
+def listar_produtos():
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+            "SELECT * FROM produtos ORDER BY id"
+            )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao inserir filme na tabela: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
+
