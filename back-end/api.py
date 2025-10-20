@@ -37,3 +37,9 @@ def atualizar_estoque(id:int, novo_preco: float):
     funcao.atualizar_preço(id, novo_preco)
     return {"mensagem": "Preço atualizado com sucesso"}
 
+@app.put("/estoque/{id_estoque}/estoque")
+def atualizar_estoque(id:int, novo_estoque: int):
+    funcao.atualizar_quantidade(id, novo_estoque)
+    return {"mensagem": "Estoque atualizado com sucesso"}
+
+
