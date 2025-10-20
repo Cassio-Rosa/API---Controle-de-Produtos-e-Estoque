@@ -31,3 +31,9 @@ def listar_estoque():
 def deletar_filmes(id: int):
     funcao.deletar_produto(id)
     return {"mensagem": "Filme Deletado com Sucesso"}
+
+@app.put("/estoque/{id_estoque}/preço")
+def atualizar_estoque(id:int, novo_preco: float):
+    funcao.atualizar_preço(id, novo_preco)
+    return {"mensagem": "Preço atualizado com sucesso"}
+
