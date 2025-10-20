@@ -44,7 +44,7 @@ def listar_produtos():
             cursor.execute(
             "SELECT * FROM produtos ORDER BY id"
             )
-            conexao.commit()
+            return cursor.fetchall()
         except Exception as erro:
             print(f"Erro ao listar produto: {erro}")
         finally:
