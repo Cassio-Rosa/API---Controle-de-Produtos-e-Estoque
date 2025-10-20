@@ -32,7 +32,7 @@ def adicionar_produto(nome, categoria, preco, quantidade):
             )
             conexao.commit()
         except Exception as erro:
-            print(f"Erro ao inserir filme na tabela: {erro}")
+            print(f"Erro ao adicionar produto: {erro}")
         finally:
             cursor.close()
             conexao.close()
@@ -46,7 +46,7 @@ def listar_produtos():
             )
             conexao.commit()
         except Exception as erro:
-            print(f"Erro ao inserir filme na tabela: {erro}")
+            print(f"Erro ao listar produto: {erro}")
         finally:
             cursor.close()
             conexao.close()
@@ -61,7 +61,7 @@ def atualizar_quantidade(id,nova_quantidade):
             )
             conexao.commit()
         except Exception as erro:
-            print(f"Erro ao inserir filme na tabela: {erro}")
+            print(f"Erro ao atualizar quantidade: {erro}")
         finally:
             cursor.close()
             conexao.close()
@@ -74,10 +74,22 @@ def atualizar_preço(id,novo_preco):
             "UPDATE produtos SET preco = %s WHERE id = %s",
             (novo_preco, id)
             )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao atualizar preço: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
+
+def deletar_produto(id_produto):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute("DELETE FROM produtos WHERE id = %s",(id_produto,))
             print("Deu certo")
             conexao.commit()
         except Exception as erro:
-            print(f"Erro ao inserir filme na tabela: {erro}")
+            print(f"Erro ao deletar produto: {erro}")
         finally:
             cursor.close()
             conexao.close()
