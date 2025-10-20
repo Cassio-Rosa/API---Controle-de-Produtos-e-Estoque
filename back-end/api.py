@@ -26,3 +26,8 @@ def listar_estoque():
             "Quantidade": linhas[4],
         })
     return {"filmes": lista}
+
+@app.delete("/estoque")
+def deletar_filmes(id: int):
+    funcao.deletar_produto(id)
+    return {"mensagem": "Filme Deletado com Sucesso"}
