@@ -51,3 +51,17 @@ def listar_produtos():
             cursor.close()
             conexao.close()
 
+def atualizar_produto(id,nova_quantidade):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+            "UPDATE produtos SET quantidade = %s WHERE id = %s",
+            (nova_quantidade, id)
+            )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao inserir filme na tabela: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
