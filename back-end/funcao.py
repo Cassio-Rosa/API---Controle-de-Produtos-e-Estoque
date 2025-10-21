@@ -96,3 +96,4 @@ def deletar_produto(id_produto):
 
 
 
+criar_tabela()

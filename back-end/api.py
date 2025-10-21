@@ -19,18 +19,18 @@ def listar_estoque():
     for linhas in filmes:
         lista.append({
 
-            "ID": linhas[0],
-            "Nome": linhas[1],
-            "Categorias": linhas[2],
-            "Preço": linhas[3],
-            "Quantidade": linhas[4],
+            "id": linhas[0],
+            "nome": linhas[1],
+            "categoria": linhas[2],
+            "preco": linhas[3],
+            "quantidade": linhas[4],
         })
-    return {"filmes": lista}
+    return {"produtos": lista}
 
 @app.delete("/estoque")
 def deletar_filmes(id: int):
     funcao.deletar_produto(id)
-    return {"mensagem": "Filme Deletado com Sucesso"}
+    return {"mensagem": "Produto deletado com sucesso"}
 
 @app.put("/estoque/{id_estoque}/preço")
 def atualizar_estoque(id:int, novo_preco: float):
