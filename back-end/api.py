@@ -8,8 +8,8 @@ def home():
     return {"mensagem": "Bem-vindos ao gerenciador do Estoque"}
 
 @app.post("/estoque")
-def adicionar_produto(nome:str, categoria:str, preco:float, quantiade:int ):
-    funcao.adicionar_produto(nome,categoria,preco,quantiade)
+def adicionar_produto(nome:str, categoria:str, preco:float, quantidade:int ):
+    funcao.adicionar_produto(nome,categoria,preco,quantidade)
     return {"mensagem": "Produto adicionado com sucesso"}
 
 @app.get("/estoque")

@@ -13,7 +13,7 @@ if menu == "Listar Produtos":
     response = requests.get(f"{API_URL}/estoque")
     if response.status_code == 200:
         produtos = response.json().get("produtos",[])
-        st.write(produtos)
+
         if produtos:
             tabela_estoque = {
 
@@ -29,3 +29,18 @@ if menu == "Listar Produtos":
             st.warning("Não tem produtos")
     else:
         st.error("Erro as acessar a API")
+
+elif menu == "Adicionar Produto":
+    st.subheader("Adicionar Produto no Estoque")
+    nome = st.text_input("Insira o nome do Produto")
+    categoria = st.text_input("Insira a/as categorias do seu Produto")
+    preco = st.number_input("Insira o valor do produto", min_value=0.00)
+    quantidade = st.number_input("Insira a quantidade do Produto", min_value=0)
+    if st.button("Salvar Produto"):
+        dados = {"nome": nome, "categoria":categoria, "preco":preco,"quantidade":quantidade}
+        response = requests.post(f"{API_URL}/estoque", params=dados)
+        st.write(dados)
+        if response.status_code == 200:
+            st.success("Produto adicionado com sucesso")
+        else:
+            st.error("Erro ao adicionar filme no estoque")
