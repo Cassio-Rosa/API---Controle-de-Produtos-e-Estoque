@@ -63,3 +63,42 @@ elif menu == "Deletar Produto":
                 st.success("Produto deletado com sucesso!")
             else:
                 st.error("Erro ao deletar produto")
+
+elif menu == "Atualizar Preço":
+    st.header("Atualizar o Preço de um produto")
+    id = st.selectbox("Escolha o ID do Produto que você desejar alterar o preço", ids)
+    response = requests.get(f"{API_URL}/estoque")
+    
+    if id:
+        produtos = response.json().get("produtos",[])
+        produto_selecionado = next(produto for produto in produtos if produto ['id'] == id)
+        st.warning(f"informações do id inserido: {produto_selecionado}")
+    if response.status_code == 200:
+        novo_preco = st.number_input("Insira o novo preço do produto selecionado")
+        dados = {"id": id, "preco": novo_preco}
+        if st.button("Trocar"):
+            response = requests.put(f"{API_URL}/estoque/{id}", params=dados)
+            if response.status_code == 200:
+                st.success("Preço alterado com sucesso")
+            else:
+                st.error("Erro ao trocar o preço do produto")
+
+elif menu == "Atualizar Quantidade de Produto":
+    st.header("Atualizar a Quantidade de um produto")
+    id = st.selectbox("Escolha o ID do Produto que você desejar alterar a Quantidade", ids)
+    response = requests.get(f"{API_URL}/estoque")
+    
+    if id:
+        produtos = response.json().get("produtos",[])
+        produto_selecionado = next(produto for produto in produtos if produto ['id'] == id)
+        st.warning(f"informações do id inserido: {produto_selecionado}")
+    if response.status_code == 200:
+        nova_quantidade = st.number_input("Insira a nova quantidade do produto selecionado")
+        dados = {"id": id, "quantidade": nova_quantidade}
+        if st.button("Trocar"):
+            response = requests.put(f"{API_URL}/estoque/{id}", params=dados)
+            if response.status_code == 200:
+                st.success("Quantidade alterado com sucesso")
+            else:
+                st.error("Erro ao trocar a quantidade do produto")
+
