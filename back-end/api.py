@@ -27,8 +27,8 @@ def listar_estoque():
         })
     return {"produtos": lista}
 
-@app.delete("/estoque")
-def deletar_filmes(id: int):
+@app.delete("/estoque/{id}")
+def deletar_produtos(id: int):
     funcao.deletar_produto(id)
     return {"mensagem": "Produto deletado com sucesso"}
 

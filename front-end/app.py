@@ -8,6 +8,13 @@ st.title("Gerenciador de Estoque")
 
 menu = st.sidebar.radio("Navegação", ["Listar Produtos","Adicionar Produto","Deletar Produto","Atualizar Preço","Atualizar Quantidade de Produto"])
 
+
+response = requests.get(f"{API_URL}/estoque")
+if response.status_code == 200:
+    produto = response.json().get("produtos",[])
+    ids = [linha["id"] for linha in produto]
+
+
 if menu == "Listar Produtos":
     st.subheader("Todos Produtos cadastrados")
     response = requests.get(f"{API_URL}/estoque")
@@ -44,3 +51,15 @@ elif menu == "Adicionar Produto":
             st.success("Produto adicionado com sucesso")
         else:
             st.error("Erro ao adicionar filme no estoque")
+
+elif menu == "Deletar Produto":
+    st.header("Deletar Produtos")
+    id = st.selectbox("Escolha o ID do Produto que você desejar deletar", ids)
+    response = requests.get(f"{API_URL}/estoque")
+    if response.status_code == 200:
+        if st.button("Deletar Produto"):
+            response = requests.delete(f"{API_URL}/estoque/{id}")
+            if response.status_code == 200:
+                st.success("Produto deletado com sucesso!")
+            else:
+                st.error("Erro ao deletar produto")
