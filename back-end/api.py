@@ -33,11 +33,10 @@ def deletar_produtos(id: int):
     return {"mensagem": "Produto deletado com sucesso"}
 
 @app.put("/estoque/{id}")
-def atualizar_estoque(id:int, novo_preco: float):
+def atualizar_preço(id:int, novo_preco: float):
     funcao.atualizar_preço(id, novo_preco) 
     return {"mensagem": "Preço atualizado com sucesso"}
-
-@app.put("/estoque/{id_estoque}")
+@app.put("/estoque/{id}/estoque")
 def atualizar_estoque(id:int, novo_estoque: int):
     funcao.atualizar_quantidade(id, novo_estoque)
     return {"mensagem": "Estoque atualizado com sucesso"}

@@ -15,7 +15,7 @@ def criar_tabela():
                 );
             """)
             conexao.commit()
-            print("Deu bom")
+
         except Exception as erro:
             print(f"Erro ao criar tabela: {erro}")
         finally:
@@ -96,4 +96,3 @@ def deletar_produto(id_produto):
 
 
 
-criar_tabela()

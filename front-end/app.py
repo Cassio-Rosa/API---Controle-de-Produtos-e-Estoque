@@ -46,7 +46,7 @@ elif menu == "Adicionar Produto":
     if st.button("Salvar Produto"):
         dados = {"nome": nome, "categoria":categoria, "preco":preco,"quantidade":quantidade}
         response = requests.post(f"{API_URL}/estoque", params=dados)
-        st.write(dados)
+
         if response.status_code == 200:
             st.success("Produto adicionado com sucesso")
         else:
@@ -68,15 +68,16 @@ elif menu == "Atualizar Preço":
     st.header("Atualizar o Preço de um produto")
     id = st.selectbox("Escolha o ID do Produto que você desejar alterar o preço", ids)
     response = requests.get(f"{API_URL}/estoque")
-    
+
     if id:
         produtos = response.json().get("produtos",[])
         produto_selecionado = next(produto for produto in produtos if produto ['id'] == id)
         st.warning(f"informações do id inserido: {produto_selecionado}")
     if response.status_code == 200:
-        novo_preco = st.number_input("Insira o novo preço do produto selecionado")
-        dados = {"id": id, "preco": novo_preco}
-        if st.button("Trocar"):
+        preço =  st.number_input("Insira o valor do produto", min_value=0.00)
+        if st.button("Atualizar o preço"):
+            dados = {"preco": preço}
+
             response = requests.put(f"{API_URL}/estoque/{id}", params=dados)
             if response.status_code == 200:
                 st.success("Preço alterado com sucesso")
@@ -86,7 +87,7 @@ elif menu == "Atualizar Preço":
 elif menu == "Atualizar Quantidade de Produto":
     st.header("Atualizar a Quantidade de um produto")
     id = st.selectbox("Escolha o ID do Produto que você desejar alterar a Quantidade", ids)
-    response = requests.get(f"{API_URL}/estoque")
+    response = requests.get(f"{API_URL}/estoque/{id}")
     
     if id:
         produtos = response.json().get("produtos",[])
